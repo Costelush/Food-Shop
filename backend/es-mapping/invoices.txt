@@ -1,0 +1,18 @@
+PUT invoices 
+{
+  "mappings": {
+    "doc": { 
+      "properties": { 
+        "uid":    { "type": "keyword"  }, 
+        "user":     { "type": "nested"  },
+        "total":      { "type": "float" },
+        "products":      { "type": "nested" },
+        "paymentDescription":{ "type": "text" },
+        "created":  {
+          "type":   "date", 
+          "format": "basic_date||epoch_millis||dd-MM-yyyy||ddMMyyyy"
+        }
+      }
+    }
+  }
+}

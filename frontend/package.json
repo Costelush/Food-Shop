@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Costelush/FoodShop.git"
+    "url": "git+https://github.com/Costelush/Food-Shop.git"
   },
   "keywords": [
     "food",
@@ -19,9 +19,12 @@
   "author": "Catalin Lungu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Costelush/FoodShop/issues"
+    "url": "https://github.com/Costelush/Food-Shop/issues"
   },
-  "homepage": "https://github.com/Costelush/FoodShop#readme",
+  "homepage": "https://github.com/Costelush/Food-Shop#readme",
+  "browser": {
+    "vue": "vue/dist/vue.common.js"
+  },
   "dependencies": {
     "axios": "^0.17.1",
     "element-ui": "^2.0.11",
