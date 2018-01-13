@@ -21,7 +21,7 @@ class EsService {
     }
 
     index(index, body) {
-        return client.index({
+        return this.client.index({
             index: index,
             type: 'doc',
             body: body
