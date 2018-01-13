@@ -1,7 +1,6 @@
 var elasticsearch = require('elasticsearch'),
-    config = require('../../config/es-config.json');
-
-const _checkPagination = Symbol('_checkPagination');
+    config = require('../../config/es-config.json'),
+    validationUtils = require('../utils/validationUtils');
 
 class EsService {
     constructor() {
@@ -12,7 +11,7 @@ class EsService {
     }
 
     search(index, query, from, size) {
-        let pagination = this[_checkPagination](from, size);
+        let pagination = validationUtils.validatePagination(from, size);
         return this.client.search({
             index: index,
             q: query,
@@ -27,14 +26,6 @@ class EsService {
             type: 'doc',
             body: body
         });
-    }
-
-    [_checkPagination](from, size) {
-        let resultSize = (size ? size : config.defaultSearchSize);
-        return {
-            from: ((from ? from : 1) - 1) * resultSize,
-            size:  resultSize
-        }
     }
 }
 
