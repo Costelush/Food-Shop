@@ -1,0 +1,8 @@
+{
+    "host": "localhost:9200",
+    "logLevel": "info",
+    "usersIndex": "users",
+    "productsIndex": "products",
+    "invoicesIndex": "invoices",
+    "defaultSearchSize": 10
+}
