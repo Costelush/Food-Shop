@@ -30,7 +30,7 @@ exports.createProduct = function (req, res) {
 
     let product = {
         uid: productUid,
-        userUid: req.body.userUid,
+        userUid: req.session.user.uid,
         name: req.body.name,
         unit: req.body.unit,
         description: req.body.description,
