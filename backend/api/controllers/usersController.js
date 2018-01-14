@@ -7,8 +7,8 @@ exports.listUsers = function (req, res) {
     esService.searchUsers("*", req.params.from, req.params.size)
         .then((response, error) => {
             if (error)
-                res.send(error);
-            res.json(response.hits);
+                res.status(500).json(error);
+            res.status(200).json(response.hits);
         });
 };
 
@@ -24,7 +24,7 @@ exports.createUser = function (req, res) {
     esService.indexUser(user)
         .then((response, error) => {
             if (error)
-                res.send(error);
-            res.json(response.hits);
+            res.status(500).json(error);
+            res.status(200).json(response.hits);
         });
 };

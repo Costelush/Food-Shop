@@ -44,10 +44,11 @@ exports.createProduct = function (req, res) {
     esService.indexProduct(product)
         .then((response, error) => {
             if (error)
-                res.send(error);
+            res.status(500).json(error);
             console.log("Product " + product.uid + " indexed.");
             res.json(response);
         }).catch(error => {
+            res.status(500).json(error);
             console.error(error);
         });
 };
@@ -57,7 +58,7 @@ exports.getProduct = function (req, res) {
     esService.searchProducts(q)
         .then((response, error) => {
             if (error)
-                res.send(error);
+                res.status(500).json(error);
 
             response.hits.hits = productUtils.convertHitsImageKeysToUrls(response.hits.hits)
             if (response.hits.hits)
