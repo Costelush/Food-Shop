@@ -6,13 +6,13 @@ module.exports = function (app) {
   // products Routes
   app.route('/products')
     .get(products.listProducts)
-    .post(products.createProducts);
+    .post(products.createProduct);
 
 
-  app.route('/products/:productId')
-    .get(products.getProduct)
-    .put(products.updateProduct)
-    .delete(products.deleteProduct);
+  // app.route('/products/:productId')
+  //   .get(products.getProduct)
+  //   .put(products.updateProduct)
+  //   .delete(products.deleteProduct);
 
   // users Routes
   app.route('/users')
