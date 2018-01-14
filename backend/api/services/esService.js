@@ -77,7 +77,7 @@ exports.updateInvoice = function (documentId, updatedDocument) {
 
 exports.delete = function (index, documentId) {
     console.log("Deleting " + index + " with documentId: " + documentId);
-    return esClient.update({
+    return esClient.delete({
         index: index,
         type: "doc",
         id: documentId

@@ -59,11 +59,10 @@ exports.getProduct = function (req, res) {
         .then((response, error) => {
             if (error)
                 res.status(500).json(error);
-
             response.hits.hits = productUtils.convertHitsImageKeysToUrls(response.hits.hits)
             if (response.hits.hits)
                 res.status(200).json(response.hits.hits[0]._source);
-            else res.status(204);
+            else res.status(204).send();
         });
 };
 
@@ -73,19 +72,33 @@ exports.updateProduct = function (req, res) {
         .then((response, error) => {
             if (error)
                 res.status(500).json(error);
-            return {
-                _id: response.hits.hits[0]._id,
-                data: validationUtils.validateProduct(req.body)
-            };
-        }).then(product => esService.updateProduct(product._id, product.data))
-        .then((response, error) => {
+            if (!response.hits.hits.length)
+                res.status(404).send();
+            else return esService.updateProduct(response.hits.hits[0]._id, validationUtils.validateProduct(req.body));
+        }).then((response, error) => {
             if (error)
                 res.status(500).json(error);
-            res.status(200).json(response);
+            if (response)
+                res.status(200).json(response);
         });
-
 };
 
 exports.deleteProduct = function (req, res) {
-
+    let q = esConstants.UID_FIELD + esConstants.ES_EQUALS + req.params.productUid;
+    esService.searchProducts(q)
+        .then((response, error) => {
+            if (error)
+                res.status(500).json(error);
+            return response.hits.hits[0];
+        }).then(product => {
+            esService.deleteProduct(product._id);
+            return product._source;
+        }).then((product, error) => {
+            if (error)
+                res.status(500).json(error);
+                else if(product) {
+            product.images.forEach(imageKey => minioService.deleteProductImage(imageKey));
+            res.status(200).send();
+        }
+        }).catch(e => res.status(500).json(e));
 };
