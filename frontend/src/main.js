@@ -6,10 +6,19 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+const state = {
+  baseUrl: 'http://localhost:3000'
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: { App },
-  template: '<App/>'
+  components: {
+    App
+  },
+  template: '<App :state="state"/>',
+  data: {
+    state: state
+  }
 })
