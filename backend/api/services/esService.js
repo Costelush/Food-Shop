@@ -52,6 +52,7 @@ exports.indexInvoice = function (body) {
 };
 
 exports.update = function (index, documentId, updatedDocument) {
+    console.log("Updating " + index + " with documentId: " + documentId);
     return esClient.update({
         index: index,
         type: "doc",
@@ -63,13 +64,13 @@ exports.update = function (index, documentId, updatedDocument) {
 };
 
 exports.updateUser = function (documentId, updatedDocument) {
-    return this.update(config.usersIndex, updatedDocument);
+    return this.update(config.usersIndex, documentId, updatedDocument);
 };
 
 exports.updateProduct = function (documentId, updatedDocument) {
-    return this.update(config.productsIndex, updatedDocument);
+    return this.update(config.productsIndex, documentId, updatedDocument);
 };
 
 exports.updateInvoice = function (documentId, bupdatedDocumentody) {
-    return this.update(config.invoicesIndex, updatedDocument);
+    return this.update(config.invoicesIndex, documentId, updatedDocument);
 };

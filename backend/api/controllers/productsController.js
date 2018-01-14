@@ -4,6 +4,7 @@ const minioService = require('../services/minioService'),
     esService = require('../services/esService'),
     productUtils = require('../utils/productUtils'),
     esConstants = require('../utils/esConstants.json'),
+    validationUtils = require('../utils/validationUtils'),
     uuidv4 = require('uuid/v4');
 
 exports.listProducts = function (req, res) {
@@ -12,8 +13,13 @@ exports.listProducts = function (req, res) {
             if (error)
                 res.send(error);
 
-            response.hits.hits = productUtils.convertHitsImageKeysToUrls(response.hits.hits)
-            res.json(response.hits);
+            let hits = productUtils.convertHitsImageKeysToUrls(response.hits.hits).map(hit => hit._source);
+            if (hits)
+                res.status(200).json({
+                    hit: hits,
+                    total: response.hits.total
+                });
+            else res.status(204);
         });
 };
 
@@ -61,6 +67,21 @@ exports.getProduct = function (req, res) {
 };
 
 exports.updateProduct = function (req, res) {
+    let q = esConstants.UID_FIELD + esConstants.ES_EQUALS + req.params.productUid;
+    esService.searchProducts(q)
+        .then((response, error) => {
+            if (error)
+                res.status(500).json(error);
+            return {
+                _id: response.hits.hits[0]._id,
+                data: validationUtils.validateProduct(req.body)
+            };
+        }).then(product => esService.updateProduct(product._id, product.data))
+        .then((response, error) => {
+            if (error)
+                res.status(500).json(error);
+            res.status(200).json(response);
+        });
 
 };
 

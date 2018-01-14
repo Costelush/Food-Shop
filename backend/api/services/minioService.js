@@ -30,8 +30,6 @@ exports.getProductImageDownloadLink = function (key, callback) {
     minioClient.presignedGetObject(config.bucket.productImagesBucket, key, config.url.downloadUrlExpirationTime, (e, presignedUrl) => {
         if (e)
             console.error(e);
-
-        console.log("Generated presigned URL for key: " + key);
         callback(presignedUrl);
     });
 }
