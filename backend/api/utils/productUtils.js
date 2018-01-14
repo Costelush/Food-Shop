@@ -1,3 +1,4 @@
+const minioService = require("../services/minioService");
 'use strict';
 
 exports.getS3Objects = function (productUid, requestFiles) {
@@ -18,4 +19,16 @@ exports.getS3Objects = function (productUid, requestFiles) {
     }
 
     return result;
+}
+
+exports.convertHitsImageKeysToUrls = function (hits) {
+    hits.forEach(hit => {
+        let urls = [];
+        hit._source.images.forEach(imageKey =>
+            minioService.getProductImageDownloadLink(imageKey, url => urls.push(url))
+        );
+        hit._source.images = urls;
+    });
+
+    return hits;
 }

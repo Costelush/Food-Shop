@@ -10,6 +10,8 @@ exports.listProducts = function (req, res) {
         .then((response, error) => {
             if (error)
                 res.send(error);
+
+            response.hits.hits = productUtils.convertHitsImageKeysToUrls(response.hits.hits)
             res.json(response.hits);
         });
 };

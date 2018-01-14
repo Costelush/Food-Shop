@@ -9,5 +9,8 @@
   },
   "bucket": {
     "productImagesBucket": "product-images"
+  },
+  "url": {
+    "downloadUrlExpirationTime": 360
   }
 }
