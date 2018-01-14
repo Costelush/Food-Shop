@@ -1,14 +1,13 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <router-view :state="state"/>
+    <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App',
-  props: ['state']
+  name: 'App'
 }
 </script>
 
