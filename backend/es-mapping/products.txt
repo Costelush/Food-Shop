@@ -3,14 +3,15 @@ PUT products
   "mappings": {
     "doc": { 
       "properties": { 
-        "uid":    { "type": "keyword"  }, 
+        "uid":    { "type": "keyword"  },
+        "userUid":    { "type": "keyword"  },
         "name":     { "type": "text"  },
         "unit":     { "type": "text"  },
         "description":     { "type": "text"  },
         "category":     { "type": "keyword"  },
         "quantity":     { "type": "integer"},
         "price":      { "type": "float" },
-        "images":      { "type": "nested" },
+        "images":      { "type": "text" },
         "created":  {
           "type":   "date", 
           "format": "basic_date||epoch_millis||dd-MM-yyyy||ddMMyyyy"
