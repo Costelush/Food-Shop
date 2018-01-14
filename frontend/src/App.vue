@@ -1,13 +1,19 @@
 <template>
   <div id="app">
+    <app-header :state='state' appName='Food Shop'> </app-header>
     <img src="./assets/logo.png">
     <router-view :state='state'/>
   </div>
 </template>
 
 <script>
-module.exports = {
-  props: ['state']
+import Header from './components/AppHeader'
+
+export default {
+  props: ['state'],
+  components: {
+    'app-header': Header
+  }
 }
 </script>
 
@@ -18,6 +24,5 @@ module.exports = {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
