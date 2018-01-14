@@ -1,15 +1,14 @@
 'use strict';
 
-const es = require('../services/esService'),
-    esService = new es(),
+const esService = require('../services/esService'),
     uuidv4 = require('uuid/v4');
 
 exports.listUsers = function (req, res) {
-    esService.search("users", "*", req.params.from, req.params.size)
+    esService.searchUsers("*", req.params.from, req.params.size)
         .then((response, error) => {
             if (error)
                 res.send(error);
-            res.json(response);
+            res.json(response.hits);
         });
 };
 
@@ -22,10 +21,10 @@ exports.createUser = function (req, res) {
         created: req.body.created,
     };
 
-    esService.index("users", user)
+    esService.indexUser(user)
         .then((response, error) => {
             if (error)
                 res.send(error);
-            res.json(response);
+            res.json(response.hits);
         });
 };
