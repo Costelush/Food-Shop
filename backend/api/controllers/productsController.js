@@ -96,9 +96,9 @@ exports.deleteProduct = function (req, res) {
         }).then((product, error) => {
             if (error)
                 res.status(500).json(error);
-                else if(product) {
-            product.images.forEach(imageKey => minioService.deleteProductImage(imageKey));
-            res.status(200).send();
-        }
+            else if (product) {
+                product.images.forEach(imageKey => minioService.deleteProductImage(imageKey));
+                res.status(200).send();
+            }
         }).catch(e => res.status(500).json(e));
 };

@@ -8,7 +8,13 @@ exports.listUsers = function (req, res) {
         .then((response, error) => {
             if (error)
                 res.status(500).json(error);
-            res.status(200).json(response.hits);
+            res.status(200).json(response.hits.hits.map(hit => {
+                let result = {};
+                for (let property in hit._source)
+                    if (property != "password")
+                        result[property] = hit._source[property];
+                return result;
+            }));
         });
 };
 
