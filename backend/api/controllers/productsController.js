@@ -23,6 +23,42 @@ exports.listProducts = function (req, res) {
         });
 };
 
+exports.listProductsByUserUid = function (uid, from, size) {
+    let q = esConstants.USER_UID_FIELD + esConstants.ES_EQUALS + uid;
+    return esService.searchProducts(q, from, size)
+        .then((response, error) => {
+            if (error)
+                res.status(500).json(error);
+
+            let hits = productUtils.convertHitsImageKeysToUrls(response.hits.hits).map(hit => hit._source);
+            if (hits)
+                return {
+                    hit: hits,
+                    total: response.hits.total
+                };
+        });
+};
+
+exports.listUserProducts = function (req, res) {
+    exports.listProductsByUserUid(req.params.userUid, req.query.from, req.query.size)
+        .then((response, e) => {
+            if (e)
+                res.status(500).json(error);
+            if (response)
+                res.status(200).json(response);
+        });
+};
+
+exports.listCurrentUserProducts = function (req, res) {
+    exports.listProductsByUserUid(req.session.user.uid, req.query.from, req.query.size)
+        .then((response, e) => {
+            if (e)
+                res.status(500).json(error);
+            if (response)
+                res.status(200).json(response);
+        });
+};
+
 exports.createProduct = function (req, res) {
     let productUid = uuidv4();
     let s3Objects = productUtils.getS3Objects(productUid, req.files);

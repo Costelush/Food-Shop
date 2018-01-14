@@ -1,8 +1,10 @@
 {
-    "ES_EQUALS": ":",
     "UID_FIELD": "uid",
+    "USER_UID_FIELD": "userUid",
     "EMAIL_FIELD": "email",
     "PASSWORD_FIELD": "password",
+
+    "ES_EQUALS": ":",
     "AND_OPERRATOR": "AND",
     "OR_OPERRATOR": "AND",
     "SPACE": " "

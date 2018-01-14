@@ -15,11 +15,16 @@ module.exports = function (app) {
     .get(products.listProducts)
     .post(sessionChecker, products.createProduct);
 
-
   app.route('/products/:productUid')
     .get(products.getProduct)
     .put(sessionChecker, products.updateProduct)
     .delete(sessionChecker, products.deleteProduct);
+
+  app.route('/user/:userUid/products')
+    .get(products.listUserProducts);
+
+  app.route('/user/products/')
+    .get(sessionChecker, products.listCurrentUserProducts);
 
   // users Routes
   app.route('/users')
