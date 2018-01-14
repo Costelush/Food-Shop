@@ -11,7 +11,7 @@ exports.listProducts = function (req, res) {
     esService.searchProducts(req.query.q, req.query.from, req.query.size)
         .then((response, error) => {
             if (error)
-                res.send(error);
+                res.status(500).json(error);
 
             let hits = productUtils.convertHitsImageKeysToUrls(response.hits.hits).map(hit => hit._source);
             if (hits)
@@ -44,7 +44,7 @@ exports.createProduct = function (req, res) {
     esService.indexProduct(product)
         .then((response, error) => {
             if (error)
-            res.status(500).json(error);
+                res.status(500).json(error);
             console.log("Product " + product.uid + " indexed.");
             res.json(response);
         }).catch(error => {
