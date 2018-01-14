@@ -50,3 +50,26 @@ exports.indexProduct = function (body) {
 exports.indexInvoice = function (body) {
     return this.index(config.invoicesIndex, body);
 };
+
+exports.update = function (index, documentId, updatedDocument) {
+    return esClient.update({
+        index: index,
+        type: "doc",
+        id: documentId,
+        body: {
+            doc: updatedDocument
+        }
+    });
+};
+
+exports.updateUser = function (documentId, updatedDocument) {
+    return this.update(config.usersIndex, updatedDocument);
+};
+
+exports.updateProduct = function (documentId, updatedDocument) {
+    return this.update(config.productsIndex, updatedDocument);
+};
+
+exports.updateInvoice = function (documentId, bupdatedDocumentody) {
+    return this.update(config.invoicesIndex, updatedDocument);
+};
