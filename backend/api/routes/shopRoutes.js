@@ -9,10 +9,10 @@ module.exports = function (app) {
     .post(products.createProduct);
 
 
-  // app.route('/products/:productId')
-  //   .get(products.getProduct)
-  //   .put(products.updateProduct)
-  //   .delete(products.deleteProduct);
+  app.route('/products/:productUid')
+    .get(products.getProduct)
+    .put(products.updateProduct)
+    .delete(products.deleteProduct);
 
   // users Routes
   app.route('/users')

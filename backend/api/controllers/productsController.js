@@ -3,10 +3,11 @@
 const minioService = require('../services/minioService'),
     esService = require('../services/esService'),
     productUtils = require('../utils/productUtils'),
+    esConstants = require('../utils/esConstants.json'),
     uuidv4 = require('uuid/v4');
 
 exports.listProducts = function (req, res) {
-    esService.searchProducts("*", req.params.from, req.params.size)
+    esService.searchProducts(req.query.q, req.query.from, req.query.size)
         .then((response, error) => {
             if (error)
                 res.send(error);
@@ -43,4 +44,26 @@ exports.createProduct = function (req, res) {
         }).catch(error => {
             console.error(error);
         });
+};
+
+exports.getProduct = function (req, res) {
+    let q = esConstants.UID_FIELD + esConstants.ES_EQUALS + req.params.productUid;
+    esService.searchProducts(q)
+        .then((response, error) => {
+            if (error)
+                res.send(error);
+
+            response.hits.hits = productUtils.convertHitsImageKeysToUrls(response.hits.hits)
+            if (response.hits.hits)
+                res.status(200).json(response.hits.hits[0]._source);
+            else res.status(204);
+        });
+};
+
+exports.updateProduct = function (req, res) {
+
+};
+
+exports.deleteProduct = function (req, res) {
+
 };

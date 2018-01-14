@@ -9,10 +9,11 @@ const esClient = new elasticsearch.Client({
 
 exports.search = function (index, query, from, size) {
     let pagination = validationUtils.validatePagination(from, size);
-    console.log("Searching for " + index);
+    let q = validationUtils.validateQuery(query);
+    console.log("Searching for " + index + " q: " + q);
     return esClient.search({
         index: index,
-        q: query,
+        q: q,
         from: pagination.from,
         size: pagination.size
     });
