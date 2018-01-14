@@ -19,7 +19,7 @@ exports.listProducts = function (req, res) {
                     hit: hits,
                     total: response.hits.total
                 });
-            else res.status(204);
+            else res.status(204).send();
         });
 };
 
