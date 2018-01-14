@@ -5,4 +5,7 @@
 npm install
 ```
 ## run the backend
+```sh
+node server.js
+```
 
