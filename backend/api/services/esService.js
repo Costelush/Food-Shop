@@ -71,6 +71,27 @@ exports.updateProduct = function (documentId, updatedDocument) {
     return this.update(config.productsIndex, documentId, updatedDocument);
 };
 
-exports.updateInvoice = function (documentId, bupdatedDocumentody) {
+exports.updateInvoice = function (documentId, updatedDocument) {
     return this.update(config.invoicesIndex, documentId, updatedDocument);
+};
+
+exports.delete = function (index, documentId) {
+    console.log("Deleting " + index + " with documentId: " + documentId);
+    return esClient.update({
+        index: index,
+        type: "doc",
+        id: documentId
+    });
+};
+
+exports.deleteUser = function (documentId) {
+    return this.delete(config.usersIndex, documentId);
+};
+
+exports.deleteProduct = function (documentId) {
+    return this.delete(config.productsIndex, documentId);
+};
+
+exports.deleteInvoice = function (documentId) {
+    return this.delete(config.invoicesIndex, documentId);
 };
