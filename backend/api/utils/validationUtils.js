@@ -3,7 +3,7 @@
 const config = require('../../config/es-config.json')
 
 exports.validateQuery = function (query) {
-    return query ? query : "*";
+    return query ? query + "*" : "*";
 }
 
 exports.validatePagination = function (from, size) {
