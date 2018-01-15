@@ -1,20 +1,14 @@
 <template>
-  <el-container id="app">
-    <el-header>
-      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">Processing Center</el-menu-item>
-        <el-submenu index="2">
-          <template slot="title">Workspace</template>
-          <el-menu-item index="2-1">item one</el-menu-item>
-          <el-menu-item index="2-2">item two</el-menu-item>
-          <el-menu-item index="2-3">item three</el-menu-item>
-        </el-submenu>
-        <el-menu-item index="3"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
+  <el-container id="app" style="width: 100%; height:100%;">
+    <el-header style="display: flex; justify-content: center;">
+      <el-menu :default-active="state.activeTab" class="app-menu" mode="horizontal" @select="handleSelect">
+        <el-menu-item index="/" class="logo">Food Shop</el-menu-item>
+        <el-menu-item v-if="!state.isLoggedIn" index="/login">Login</el-menu-item>
+        <el-menu-item v-if="!state.isLoggedIn" index="/register">Register</el-menu-item>
       </el-menu>
     </el-header>
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
-      <el-main>
+      <el-main style="display: flex; justify-content: center;">
         <router-view :state='state'/>
       </el-main>
     </el-container>
@@ -22,28 +16,33 @@
 </template>
 
 <script>
-import Header from './components/AppHeader'
-
 export default {
   props: ['state'],
-  components: {
-    'app-header': Header
-  },
   data () {
     return {
-      activeIndex: '1',
-      activeIndex2: '1'
     }
   },
   methods: {
     handleSelect (key, keyPath) {
       console.log(key, keyPath)
+
+      switch (key) {
+        case '/': this.$router.push({ path: '/' }); break
+        case '/login': this.$router.push({ path: '/login' }); break
+      }
     }
   }
 }
 </script>
 
 <style>
+html,
+body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -51,4 +50,25 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
+.logo {
+  font-weight: normal;
+  font-style: oblique;
+  font-variant: small-caps;
+  color: #000000;
+  letter-spacing: 1pt;
+  word-spacing: 2pt;
+  font-size: 23px;
+  text-align: center;
+  font-family: palatino linotype, palatino, serif;
+  line-height: 0;
+  margin-left: 8px;
+  margin-right: 8px;
+  padding: 0px;
+}
+
+.app-menu {
+  width: 70%;
+}
+
 </style>

@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <el-card class="main-container">
     <h2>{{ state.baseUrl }}</h2>
     <div class="product-flex-container wrap">
       <product v-if="products" v-for="product in products" :key="product.name" :data="product"></product>
     </div>
-  </div>
+  </el-card>
 </template>
 
 <script>
@@ -15,6 +15,7 @@ export default {
   props: ['state'],
 
   mounted: function () {
+    this.state.activeTab = '/'
     this.searchItems()
   },
   methods: {
@@ -46,10 +47,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .product-flex-container {
+  width: 100%;
+  height: 100%;
   padding: 0;
   margin: 0;
   list-style: none;
-  border: 1px solid silver;
   -ms-box-orient: horizontal;
   display: -webkit-box;
   display: -moz-box;
@@ -61,7 +63,12 @@ export default {
 }
 
 .wrap {
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.main-container {
+  width: 70%;
+  height: calc(100% - 8px);
 }
 </style>

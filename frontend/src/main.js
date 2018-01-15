@@ -9,7 +9,9 @@ Vue.config.productionTip = false
 Vue.use(ElementUi)
 
 const state = {
-  baseUrl: 'http://localhost:3000'
+  baseUrl: 'http://localhost:3000',
+  activeTab: '/',
+  isLoggedIn: false
 }
 
 /* eslint-disable no-new */
