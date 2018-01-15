@@ -16,7 +16,7 @@ exports.listProducts = function (req, res) {
             let hits = productUtils.convertHitsImageKeysToUrls(response.hits.hits).map(hit => hit._source);
             if (hits)
                 res.status(200).json({
-                    hit: hits,
+                    hits: hits,
                     total: response.hits.total
                 });
             else res.status(204).send();
@@ -33,7 +33,7 @@ exports.listProductsByUserUid = function (uid, from, size) {
             let hits = productUtils.convertHitsImageKeysToUrls(response.hits.hits).map(hit => hit._source);
             if (hits)
                 return {
-                    hit: hits,
+                    hits: hits,
                     total: response.hits.total
                 };
         });
