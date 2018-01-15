@@ -11,13 +11,15 @@
             <el-input v-model="loginData.password" type="password" placeholder="Password" clearable></el-input>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="onSubmit">Login</el-button>
+            <el-button type="primary" @click="logIn">Login</el-button>
         </el-form-item>
         </el-form>
     </el-card>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   props: ['state'],
   mounted: function () {
@@ -33,6 +35,20 @@ export default {
   },
   methods: {
     logIn () {
+      axios.post(this.state.baseUrl + '/login', {
+        username: this.loginData.username,
+        password: this.loginData.password
+      }).then((response) => {
+        this.handleReponse(response)
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    handleReponse (response) {
+      if (response.status === 200) {
+        this.state.isLoggedIn = true
+        this.$router.push({ path: '/' })
+      }
     }
   }
 }

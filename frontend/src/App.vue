@@ -3,8 +3,11 @@
     <el-header style="display: flex; justify-content: center;">
       <el-menu :default-active="state.activeTab" class="app-menu" mode="horizontal" @select="handleSelect">
         <el-menu-item index="/" class="logo">Food Shop</el-menu-item>
+      </el-menu>
+      <el-menu :default-active="state.activeTab" class="login-menu" mode="horizontal" @select="handleSelect">
         <el-menu-item v-if="!state.isLoggedIn" index="/login">Login</el-menu-item>
         <el-menu-item v-if="!state.isLoggedIn" index="/register">Register</el-menu-item>
+        <el-menu-item v-if="state.isLoggedIn" index="/logout">Logout</el-menu-item>
       </el-menu>
     </el-header>
     <el-container>
@@ -29,6 +32,7 @@ export default {
       switch (key) {
         case '/': this.$router.push({ path: '/' }); break
         case '/login': this.$router.push({ path: '/login' }); break
+        case '/logout': this.$router.push({ path: '/logout' }); break
       }
     }
   }
@@ -68,7 +72,11 @@ body {
 }
 
 .app-menu {
-  width: 70%;
+  width: 60%;
+}
+
+.login-menu {
+  width: 10%;
 }
 
 </style>
