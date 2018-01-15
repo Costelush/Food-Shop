@@ -3,21 +3,26 @@
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
     <h2>{{ state.baseUrl }}</h2>
+    <product></product>
   </div>
 </template>
 
 <script>
+import Product from './Product'
+
 export default {
   props: ['state'],
 
   mounted: function () {
     console.log(this.state)
   },
-
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  components: {
+    'product': Product
   }
 }
 </script>
