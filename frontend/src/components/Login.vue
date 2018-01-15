@@ -5,7 +5,7 @@
             <p  class="logo">Food Shop</p>
         </el-form-item>
         <el-form-item>
-            <el-input v-model="loginData.username" placeholder="Username" clearable></el-input>
+            <el-input v-model="loginData.username" placeholder="Email" clearable></el-input>
         </el-form-item>
         <el-form-item>
             <el-input v-model="loginData.password" type="password" placeholder="Password" clearable></el-input>
@@ -56,7 +56,7 @@ export default {
 
 <style scope>
     .login-container {
-      height: 35%;
+      height: 50%;
       width: 25%;
       margin-top: 10%;
     }

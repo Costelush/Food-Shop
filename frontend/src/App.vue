@@ -33,6 +33,7 @@ export default {
         case '/': this.$router.push({ path: '/' }); break
         case '/login': this.$router.push({ path: '/login' }); break
         case '/logout': this.$router.push({ path: '/logout' }); break
+        case '/register': this.$router.push({ path: '/register' }); break
       }
     }
   }

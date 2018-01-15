@@ -9,11 +9,10 @@ const esClient = new elasticsearch.Client({
 
 exports.search = function (index, query, from, size) {
     let pagination = validationUtils.validatePagination(from, size);
-    let q = validationUtils.validateQuery(query);
-    console.log("Searching for " + index + " q: " + q);
+    console.log("Searching for " + index + " q: " + query);
     return esClient.search({
         index: index,
-        q: q,
+        q: query,
         from: pagination.from,
         size: pagination.size
     });
@@ -24,11 +23,13 @@ exports.searchUsers = function (query, from, size) {
 };
 
 exports.searchProducts = function (query, from, size) {
-    return this.search(config.productsIndex, query, from, size);
+    let q = validationUtils.validateQuery(query);
+    return this.search(config.productsIndex, q, from, size);
 };
 
 exports.searchInvoices = function (query, from, size) {
-    return this.search(config.invoicesIndex, query, from, size);
+    let q = validationUtils.validateQuery(query);
+    return this.search(config.invoicesIndex, q, from, size);
 };
 
 exports.index = function (index, body) {
