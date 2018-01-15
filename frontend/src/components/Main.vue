@@ -5,6 +5,14 @@
     <div class="product-flex-container wrap">
       <product v-if="products" v-for="product in products" :key="product.name" :data="product"></product>
     </div>
+    <el-pagination
+      @size-change="handleNumberOfItemsChange"
+      @current-change="handlePageChange"
+      :page-sizes="[10, 15, 20, 50]"
+      :page-size=pageSize
+      layout="total, sizes, prev, pager, next"
+      :total=totalNumberOfProducts>
+    </el-pagination>
   </el-card>
 </template>
 
@@ -27,16 +35,25 @@ export default {
           q: query
         }}).then(response => {
         this.products = response.data.hits
+        this.totalNumberOfProducts = this.products.length
         console.log('Received ' + this.products.length + ' hits')
       }).catch(e => {
         console.error(e)
       })
+    },
+    handleNumberOfItemsChange (val) {
+      console.log(`${val} items per page`)
+    },
+    handlePageChange (val) {
+      console.log(`current page: ${val}`)
     }
   },
   data () {
     return {
       products: [],
-      searchTimeout: undefined
+      searchTimeout: undefined,
+      pageSize: 10,
+      totalNumberOfProducts: 0
     }
   },
 

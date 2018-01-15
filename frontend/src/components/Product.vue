@@ -1,6 +1,6 @@
 <template>
     <el-card :body-style="{padding: '0px'}" class="product-container">
-        <el-carousel trigger="hover" :autoplay=false  height="200px">
+        <el-carousel trigger="click" :autoplay=false  height="200px">
             <el-carousel-item v-for="item in data.images" :key="item">
                 <div style="display:flex; height: 100%; width: 100%;">
                     <img :src="item" class="card-image">
