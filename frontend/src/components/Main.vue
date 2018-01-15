@@ -1,6 +1,7 @@
 <template>
   <el-card class="main-container">
-    <h2>{{ state.baseUrl }}</h2>
+    <el-input placeholder="Search" prefix-icon="el-icon-search" v-model="state.searchQuery" clearable>
+    </el-input>
     <div class="product-flex-container wrap">
       <product v-if="products" v-for="product in products" :key="product.name" :data="product"></product>
     </div>
@@ -16,25 +17,34 @@ export default {
 
   mounted: function () {
     this.state.activeTab = '/'
-    this.searchItems()
+    this.searchProducts()
   },
   methods: {
-    searchItems: function (query) {
-      axios.get(this.state.baseUrl + '/products')
-        .then(response => {
-          // JSON responses are automatically parsed.
-          this.products = response.data.hits
-          console.log('Received ' + this.products.length + ' hits')
-        })
-        .catch(e => {
-          console.error(e)
-        })
+    searchProducts: function (query) {
+      console.log('Searching products with q: ' + query)
+      axios.get(this.state.baseUrl + '/products', {
+        params: {
+          q: query
+        }}).then(response => {
+        this.products = response.data.hits
+        console.log('Received ' + this.products.length + ' hits')
+      }).catch(e => {
+        console.error(e)
+      })
     }
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      products: []
+      products: [],
+      searchTimeout: undefined
+    }
+  },
+
+  watch: {
+    'state.searchQuery': function (newValue, oldValue) {
+      console.log(newValue, oldValue)
+      clearTimeout(this.searchTimeout)
+      this.searchTimeout = setTimeout(() => this.searchProducts(newValue), 200)
     }
   },
   components: {
@@ -70,5 +80,6 @@ export default {
 .main-container {
   width: 70%;
   height: calc(100% - 8px);
+  overflow-y: auto;
 }
 </style>

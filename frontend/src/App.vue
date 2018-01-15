@@ -72,11 +72,11 @@ body {
 }
 
 .app-menu {
-  width: 60%;
+  width: calc(70% - 190px);
 }
 
 .login-menu {
-  width: 10%;
+  width: 190px;
 }
 
 </style>

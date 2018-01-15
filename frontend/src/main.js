@@ -11,7 +11,8 @@ Vue.use(ElementUi)
 const state = {
   baseUrl: 'http://localhost:3000',
   activeTab: '/',
-  isLoggedIn: false
+  isLoggedIn: false,
+  searchQuery: ''
 }
 
 /* eslint-disable no-new */
