@@ -15,7 +15,6 @@
     <el-container>
       <el-aside width="200px">Aside</el-aside>
       <el-main>
-        <img src="./assets/logo.png">
         <router-view :state='state'/>
       </el-main>
     </el-container>
