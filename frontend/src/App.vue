@@ -7,6 +7,7 @@
       <el-menu :default-active="state.activeTab" class="login-menu" mode="horizontal" @select="handleSelect">
         <el-menu-item v-if="!state.isLoggedIn" index="/login">Login</el-menu-item>
         <el-menu-item v-if="!state.isLoggedIn" index="/register">Register</el-menu-item>
+        <el-menu-item v-if="state.isLoggedIn" index="/add/product">Add</el-menu-item>
         <el-menu-item v-if="state.isLoggedIn" index="/logout">Logout</el-menu-item>
       </el-menu>
     </el-header>
@@ -34,6 +35,7 @@ export default {
         case '/login': this.$router.push({ path: '/login' }); break
         case '/logout': this.$router.push({ path: '/logout' }); break
         case '/register': this.$router.push({ path: '/register' }); break
+        case '/add/product': this.$router.push({ path: '/add/product' }); break
       }
     }
   }

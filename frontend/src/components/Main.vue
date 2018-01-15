@@ -32,20 +32,27 @@ export default {
       console.log('Searching products with q: ' + query)
       axios.get(this.state.baseUrl + '/products', {
         params: {
-          q: query
+          q: query,
+          from: this.pageNumber,
+          size: this.pageSize
         }}).then(response => {
         this.products = response.data.hits
-        this.totalNumberOfProducts = this.products.length
-        console.log('Received ' + this.products.length + ' hits')
+        this.totalNumberOfProducts = response.data.total
+        console.log('Received ' + this.totalNumberOfProducts + ' hits')
       }).catch(e => {
         console.error(e)
       })
     },
     handleNumberOfItemsChange (val) {
-      console.log(`${val} items per page`)
+      this.pageSize = val
+      clearTimeout(this.searchTimeout)
+      this.searchProducts(this.state.searchQuery)
     },
     handlePageChange (val) {
-      console.log(`current page: ${val}`)
+      this.pageNumber = val
+      console.log(val)
+      clearTimeout(this.searchTimeout)
+      this.searchProducts(this.state.searchQuery)
     }
   },
   data () {
@@ -53,7 +60,8 @@ export default {
       products: [],
       searchTimeout: undefined,
       pageSize: 10,
-      totalNumberOfProducts: 0
+      totalNumberOfProducts: 0,
+      pageNumber: 1
     }
   },
 
